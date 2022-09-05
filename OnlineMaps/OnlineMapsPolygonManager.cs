@@ -19,8 +19,6 @@ using UnityEngine.Events;
 
 namespace Iroqas.OnlineMapsUtilities
 {
-
-
     public class OnlineMapsPolygonManager : MonoBehaviour
     {
         protected bool isDirty;
@@ -30,6 +28,7 @@ namespace Iroqas.OnlineMapsUtilities
         protected Dictionary<string, OnlineMapsDrawingPoly> polygons = new Dictionary<string, OnlineMapsDrawingPoly>();
         protected Dictionary<string, OnlineMapsDrawingPoly> visiblePolygons = new Dictionary<string, OnlineMapsDrawingPoly>();
 
+
         // Events
         protected UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>> onAddPolygon = new UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>>();
         protected UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>> onUpdatePolygon = new UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>>();
@@ -37,17 +36,14 @@ namespace Iroqas.OnlineMapsUtilities
         protected UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>> onPolygonSetVisible = new UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>>();
         protected UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>> onPolygonSetInvisible = new UnityEvent<KeyValuePair<string, OnlineMapsDrawingPoly>>();
 
+
         private void Start()
         {
-
             onPolygonSetVisible.AddListener(LoadPolygonToOnlineMapsCallback);
             onPolygonSetInvisible.AddListener(UnloadPolygonFromOnlineMapsCallback);
-
-        
         }
-
-    
-
+        
+        
         private void LateUpdate()
         {
             if (isDirty)
@@ -57,7 +53,6 @@ namespace Iroqas.OnlineMapsUtilities
                 print("was dirty");
             }
         }
-
 
 
         #region Event handlers management.
@@ -78,7 +73,6 @@ namespace Iroqas.OnlineMapsUtilities
                 onAddPolygon.AddListener(callback);
 
             }
-
         }
 
 
@@ -179,8 +173,8 @@ namespace Iroqas.OnlineMapsUtilities
             OnlineMapsDrawingElementManager.RemoveItem(data.Value, false);
             isDirty = true;
         }
-
         #endregion
+        
 
         #region Polygon ADD/UPDATE/REMOVE
         /// <summary>
@@ -226,8 +220,8 @@ namespace Iroqas.OnlineMapsUtilities
 
             onRemovePolygon.Invoke(new KeyValuePair<string, OnlineMapsDrawingPoly>(key, polygons[key]));
         }
-
         #endregion
+
 
         #region Other Methods
         /// <summary>
@@ -250,10 +244,8 @@ namespace Iroqas.OnlineMapsUtilities
         {
             return visiblePolygons.ContainsKey(key);
         }
-
-
-
-
+        
+        
         /// <summary>
         /// Returns a reference from a polygon.
         /// </summary>
@@ -276,7 +268,6 @@ namespace Iroqas.OnlineMapsUtilities
         /// <param name="visible"></param>
         public void SetPolygonVisibility(string key, bool visible)
         {
-
             if (visible)
             {
                 if (IsPolygonVisible(key))
@@ -302,10 +293,7 @@ namespace Iroqas.OnlineMapsUtilities
 
                 onPolygonSetInvisible.Invoke(new KeyValuePair<string, OnlineMapsDrawingPoly>(key, polygons[key]));
             }
-        
-
         }
-
         #endregion
 
         /// <summary>
@@ -348,8 +336,5 @@ namespace Iroqas.OnlineMapsUtilities
                 return new OnlineMapsDrawingPoly(polygon, borderColor, borderWidth, backgroundColor);
             }
         }
-
-
     }
-
 }
